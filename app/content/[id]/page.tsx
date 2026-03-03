@@ -11,10 +11,17 @@ export default function ContentDetailPage({ params }: { params: { id: string } }
   const [loading, setLoading] = useState(true);
   const [bookmarked, setBookmarked] = useState(false);
   const [bookmarkLoading, setBookmarkLoading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     fetchContent();
+    checkAuth();
   }, [params.id]);
+
+  const checkAuth = () => {
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token);
+  };
 
   const fetchContent = async () => {
     try {
@@ -116,7 +123,7 @@ export default function ContentDetailPage({ params }: { params: { id: string } }
               </div>
 
               {/* Access Restriction Notice */}
-              {content.access_level !== 'public' && !token && (
+              {content.access_level !== 'public' && !isLoggedIn && (
                 <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
                   <div className="flex items-start gap-3">
                     <span className="text-2xl">🔒</span>
