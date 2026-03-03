@@ -83,7 +83,7 @@ export default function EditContentPage({ params }: { params: { id: string } }) 
             instructor_name: content.lecture?.instructor_name || '',
             course_code: content.lecture?.course_code || '',
             course_name: content.lecture?.course_name || '',
-            duration_minutes: content.lecture?.duration_seconds ? Math.floor(content.lecture.duration_seconds / 60) : '',
+            duration_minutes: content.lecture?.duration_seconds ? Math.floor(content.lecture.duration_seconds / 60).toString() : '',
           });
           setExistingThumbnail(content.thumbnail_path);
         }
