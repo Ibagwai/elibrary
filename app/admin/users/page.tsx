@@ -4,6 +4,16 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { apiClient } from '@/lib/api/client';
 
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  department?: string;
+  is_active?: boolean;
+  created_at: string;
+}
+
 const ROLE_COLORS: Record<string, string> = {
   super_admin: 'bg-purple-100 text-purple-800',
   admin: 'bg-red-100 text-red-800',
@@ -61,7 +71,7 @@ export default function AdminUsersPage() {
     }
   }
 
-  async function toggleUserStatus(id: number, currentStatus: boolean) {
+  async function toggleUserStatus(id: string, currentStatus?: boolean) {
     try {
       await apiClient(`/api/v1/admin/users/${id}/toggle-status`, {
         method: 'POST',
@@ -72,7 +82,7 @@ export default function AdminUsersPage() {
     }
   }
 
-  async function changeUserRole(id: number, newRole: string) {
+  async function changeUserRole(id: string, newRole: string) {
     try {
       await apiClient(`/api/v1/admin/users/${id}/role`, {
         method: 'PUT',
@@ -85,7 +95,7 @@ export default function AdminUsersPage() {
     }
   }
 
-  async function deleteUser(id: number) {
+  async function deleteUser(id: string) {
     if (!confirm('Delete this user? This action cannot be undone.')) return;
     try {
       await apiClient(`/api/v1/admin/users/${id}`, {

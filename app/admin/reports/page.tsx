@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { apiClient } from '@/lib/api';
+import { apiClient } from '@/lib/api/client';
 
 export default function AdminReportsPage() {
   const [stats, setStats] = useState({
@@ -10,8 +10,8 @@ export default function AdminReportsPage() {
     totalDownloads: 0,
     totalViews: 0,
   });
-  const [popular, setPopular] = useState([]);
-  const [recentActivity, setRecentActivity] = useState([]);
+  const [popular, setPopular] = useState<any[]>([]);
+  const [recentActivity, setRecentActivity] = useState<any[]>([]);
   const [contentByType, setContentByType] = useState<any>({});
   const [loading, setLoading] = useState(true);
 
